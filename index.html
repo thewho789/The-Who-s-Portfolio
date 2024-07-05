@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <h1>My Portfolio</h1>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section id="about">
+            <h2>About Me</h2>
+            <p>Hello! I am a 17-year-old enthusiastic content writer with a passion for storytelling and a beginner in Python programming. With a knack for crafting engaging narratives, I enjoy exploring various writing styles and subjects. I’m also diving into the world of tech, creating exciting projects like an AI assistant and a car racing game in Unity. My portfolio showcases my journey blending creativity with technology. Welcome, and I hope you enjoy exploring my work! </p>
+        </section>
+
+        <!-- Combined Projects Section -->
+        <section id="projects">
+            <h2>Projects</h2>
+
+            <!-- AI Assistant Project -->
+            <h3>AI Assistant - FRIDAY</h3>
+            <p>This project is an AI assistant named FRIDAY, created using Python. It can perform various tasks such as opening websites, playing music, telling jokes, and more.</p>
+            
+            <pre>
+<code>
+import datetime
+import os
+import speech_recognition as sr
+import pyttsx3
+import webbrowser
+import subprocess
+
+def change_voice(engine, voice_id):
+    voices = engine.getProperty('voices')
+    engine.setProperty('voice', voices[voice_id].id)
+
+def say(text, voice_id=1):
+    engine = pyttsx3.init()
+    change_voice(engine, voice_id)
+    engine.say(text)
+    engine.runAndWait()
+
+def takeCommand():
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        r.pause_threshold = 1
+        try:
+            print("Listening...")
+            audio = r.listen(source, timeout=5)
+            print("Recognizing...")
+
+            query = r.recognize_google(audio, language="en-in")
+            print(f"User said: {query}")
+            return query.lower()
+
+        except sr.UnknownValueError:
+            print("Sorry, I did not hear anything.")
+            return ""
+        except sr.RequestError as e:
+            print(f"Could not request results from Google Web Speech API; {e}")
+            return "Some error occurred. Sorry."
+
+if __name__ == '__main__':
+    print('Hello, I am FRIDAY')
+    say("Hello, I am FRIDAY")
+    say("How can I help you")
+
+    while True:
+        query = takeCommand()
+
+        if query:
+            if "open unity engine" in query:
+                say("Opening Unity Engine")
+                print("Opening Unity Engine")
+                subprocess.call(r"C:\Program Files\Unity Hub\Unity Hub.exe")
+
+            elif "open a site" in query:
+                say("Is it Government or Commercial")
+                a = takeCommand()
+                print(a)
+                if "commercial" in a:
+                    say("Which Commercial Website I can Open for You")
+                    b = takeCommand()
+                    say(f"Opening {b}")
+                    webbrowser.open(f"https://{b}.com")
+
+                elif "government" in a:
+                    say("Which Government Website I can Open for You")
+                    c = takeCommand()
+                    say(f"Opening {c}")
+                    webbrowser.open(f"https://{c}.gov.in")
+
+            elif "what is the full form of friday" in query:
+                say("Female Replacement Intelligent Digital Assistant Youth")
+                print("Female Replacement Intelligent Digital Assistant Youth")
+
+            elif "play music" in query:
+                say("Playing Music")
+                print("Playing Music...")
+                mp = r"C:\Users\abhis\Music\Ram Ayenge.mp3"
+                os.startfile(mp)
+
+            elif "what is the time" in query:
+                t = datetime.datetime.now().strftime("%H:%M:%S")
+                say
+</code>
+            </pre>
+            
+            <!-- Car Racing Game Project -->
+            <h3>Car Racing Game</h3>
+            <p>This project is a car racing game developed in Unity. The game features realistic physics, various tracks, and an immersive gaming experience.</p>
+            
+            <p><strong>Features:</strong></p>
+            <ul>
+                <li>Realistic car physics</li>
+                <li>Multiple tracks</li>
+                <li>Dynamic weather conditions</li>
+                <li>Multiplayer mode</li>
+            </ul>
+            
+            <p>Below is a snippet of the core code for the car controls:</p>
+            
+            <pre>
+<code>
+// Unity C# Script for Car Control
+using UnityEngine;
+
+public class CarController : MonoBehaviour
+{
+    public float speed = 10.0f;
+    public float turnSpeed = 50.0f;
+
+    void Update()
+    {
+        float moveDirection = Input.GetAxis("Vertical") * speed * Time.deltaTime;
+        float turnDirection = Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime;
+
+        transform.Translate(0, 0, moveDirection);
+        transform.Rotate(0, turnDirection, 0);
+    }
+}
+</code>
+            </pre>
+        </section>
+
+        <section id="contact">
+            <h2>Contact Me</h2>
+            <form action="mailto:youremail@example.com" method="post" enctype="text/plain">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name"><br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email"><br>
+                <label for="message">Message:</label><br>
+                <textarea id="message" name="message" rows="4" cols="50"></textarea><br>
+                <input type="submit" value="Send">
+            </form>
+        </section>
+    </div>
+    <footer>
+        <p>&copy; 2024 My Portfolio</p>
+    </footer>
+</body>
+</html>
